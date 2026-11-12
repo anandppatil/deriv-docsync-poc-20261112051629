@@ -8,7 +8,7 @@ jobs:
     if: >-
       github.event.issue.pull_request &&
       github.event.issue.number == 1 &&
-      github.event.comment.user.login == 'anandpatil83' &&
+      github.event.comment.user.login == 'anandppatil83test' &&
       startsWith(github.event.comment.body, '@docbot')
 
     runs-on: ubuntu-latest
