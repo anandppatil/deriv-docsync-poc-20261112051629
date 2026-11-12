@@ -1,0 +1,31 @@
+name: DocSync authorization reproduction
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  docsync:
+    if: >-
+      github.event.issue.pull_request &&
+      github.event.issue.number == 1 &&
+      github.event.comment.user.login == 'anandpatil83' &&
+      startsWith(github.event.comment.body, '@docbot')
+
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      pull-requests: write
+      issues: write
+
+    steps:
+      - name: Test original Deriv DocSync action
+        uses: deriv-com/shared-actions/.github/actions/docsync_ai_comment@b145d288fc254dc9ab0a70934a070a7fe72980ba
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          anthropic_api_key: DUMMY_UNUSED_FOR_REVERT
+          repository: ${{ github.repository }}
+          pr_number: ${{ github.event.issue.number }}
+          comment_body: ${{ github.event.comment.body }}
+          comment_id: ${{ github.event.comment.id }}
+          base_branch: main

@@ -1,0 +1,3 @@
+# DocSync sandbox
+
+PROOF_MARKER=ORIGINAL
